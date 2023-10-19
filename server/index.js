@@ -4,9 +4,10 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 const PORT = 8080
+const authRoute = require('./routes').auth
 
 mongoose
-  .connect('mongodb://localhost:27017/mernDB')
+  .connect('mongodb://127.0.0.1:27017/mernDB')
   .then(() => {
     console.log('connect to mongodb successfully!')
   })
@@ -14,5 +15,6 @@ mongoose
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use('/api/user', authRoute)
 
 app.listen(PORT, () => console.log(`backend server is listening on PORT ${PORT}...`))

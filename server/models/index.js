@@ -1,4 +1,4 @@
 module.exports = {
-  user: require('./user-model'),
-  course: require('./course-model')
+  User: require('./user-model'),
+  Course: require('./course-model')
 }
