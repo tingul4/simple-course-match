@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { User, Course } = require('../models')
 const { registerValidation, loginValidation, courseValidation } = require('../validation')
+const jwt = require("jsonwebtoken");
 
 router.use((req, res, next) => {
   console.log('這是一個 auth 請求...')
@@ -29,6 +30,29 @@ router.post('/register', async (req, res) => {
     return res.status(500).send("無法儲存使用者。。。")
   }
 
+})
+
+router.post('/login', async (req, res) => {
+  const { error } = loginValidation(req.body)
+  if (error) return res.status(400).send(error.details[0].message)
+
+  const { email, password } = req.body
+  const foundUser = await User.findOne({ email })
+  foundUser.comparePassword(password, (error, isMatch) => {
+    if (error) return res.status(500).send(error)
+
+    if (isMatch) {
+      const tokenObject = { _id: foundUser._id, email: foundUser.email }
+      const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET)
+      return res.send({
+        message: '成功登入',
+        token: 'JWT ' + token,
+        user: foundUser
+      })
+    } else {
+      return res.status(401).send('密碼錯誤')
+    }
+  })
 })
 
 module.exports = router
