@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const { User, Course } = require('../models')
-const { registerValidation, loginValidation, courseValidation } = require('../validation')
+const { User } = require('../models')
+const { registerValidation, loginValidation } = require('../validation')
 const jwt = require("jsonwebtoken");
 
 router.use((req, res, next) => {
@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
   if (emailExist) return res.status(400).send("此信箱已經被註冊過了。。。")
   const newUser = new User({ username, email, password, role })
   try {
-    const savedUser = newUser.save()
+    const savedUser = await newUser.save()
     return res.send({
       msg: "使用者成功儲存。",
       savedUser,
