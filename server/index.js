@@ -6,6 +6,7 @@ const PORT = 8080
 const { auth, course } = require('./routes')
 const passport = require('passport')
 require('./config/passport')(passport)
+const cors = require('cors')
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/mernDB')
@@ -16,6 +17,8 @@ mongoose
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
+
 app.use('/api/user', auth)
 app.use('/api/courses', passport.authenticate('jwt', { session: false }), course) // need JWT to authorize
 

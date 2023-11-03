@@ -1,9 +1,40 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/auth.service.js";
 
 const RegisterComponent = () => {
+  const navigate = useNavigate()
+  let [username, setUsername] = useState('')
+  let [email, setEmail] = useState('')
+  let [password, setPassword] = useState('')
+  let [role, setRole] = useState('')
+  let [message, setMessage] = useState('')
+
+  const handleChangeUsername = e => {
+    setUsername(e.target.value)
+  }
+  const handleChangeEmail = e => {
+    setEmail(e.target.value)
+  }
+  const handleChangePassword = e => {
+    setPassword(e.target.value)
+  }
+  const handleChangeRole = e => {
+    setRole(e.target.value)
+  }
+  const handleRegister = () => {
+    AuthService.register(username, email, password, role)
+      .then(() => {
+        window.alert('註冊成功!您即將被導入登入頁面!')
+        navigate('/login')
+      })
+      .catch(e => setMessage(e.response.data))
+  }
+
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
       <div>
+        {message && <div className="alert alert-danger">{message}</div>}
         <div>
           <label htmlFor="username">用戶名稱:</label>
           <input
@@ -38,7 +69,7 @@ const RegisterComponent = () => {
         <div className="form-group">
           <label htmlFor="password">身份：</label>
           <input
-            onChange={handleChnageRole}
+            onChange={handleChangeRole}
             type="text"
             className="form-control"
             placeholder="只能填入student或是instructor這兩個選項其一"
