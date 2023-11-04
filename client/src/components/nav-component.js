@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
-const NavComponent = () => {
+const NavComponent = ({ currentUser, setCurrentUser }) => {
+  const handleLogout = () => {
+    AuthService.logout()
+    window.alert('登出成功！您即將被導向至首頁！')
+    setCurrentUser(null)
+  }
   return (
     <div>
       <nav>
@@ -27,47 +33,48 @@ const NavComponent = () => {
                   </Link>
                 </li>
 
-                <li className="nav-item">
+                {!currentUser && <li className="nav-item">
                   <Link className="nav-link" to="/register">
                     註冊會員
                   </Link>
-                </li>
+                </li>}
 
-                <li className="nav-item">
+                {!currentUser && <li className="nav-item">
                   <Link className="nav-link" to="/login">
                     會員登入
                   </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">
+                </li>}
+                
+                {currentUser && <li className="nav-item">
+                  <Link onClick={handleLogout} className="nav-link" to="/">
                     登出
                   </Link>
-                </li>
+                </li>}
+                
 
-                <li className="nav-item">
+                {currentUser && <li className="nav-item">
                   <Link className="nav-link" to="/profile">
                     個人頁面
                   </Link>
-                </li>
+                </li>}
 
-                <li className="nav-item">
+                {currentUser && <li className="nav-item">
                   <Link className="nav-link" to="/course">
                     課程頁面
                   </Link>
-                </li>
+                </li>}
 
-                <li className="nav-item">
+                {currentUser && currentUser.user.role === 'instructor' && <li className="nav-item">
                   <Link className="nav-link" to="/postCourse">
                     新增課程
                   </Link>
-                </li>
+                </li>}
 
-                <li className="nav-item">
+                {currentUser && currentUser.user.role === 'student' && <li className="nav-item">
                   <Link className="nav-link" to="/enroll">
                     註冊課程
                   </Link>
-                </li>
+                </li>}
               </ul>
             </div>
           </div>
