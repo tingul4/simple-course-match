@@ -5,6 +5,7 @@ import Home from './components/home-component.js'
 import Register from './components/register-component.js'
 import Login from './components/login-component.js'
 import Profile from './components/profile-component.js'
+import Course from './components/course-component.js'
 import AuthService from './services/auth.service.js'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path='register' element={<Register />} />
           <Route path='login' element={<Login setCurrentUser={setCurrentUser}/>} />
           <Route path='profile' element={<Profile currentUser={currentUser}/>} />
+          <Route path='course' element={<Course currentUser={currentUser}/>} />
         </Route>
       </Routes>
     </BrowserRouter>

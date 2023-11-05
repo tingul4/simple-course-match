@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET)
       return res.send({
         message: '成功登入',
-        token: 'JWT ' + token,
+        token: 'Bearer ' + token,
         user: foundUser
       })
     } else {

@@ -44,7 +44,7 @@ class CourseService {
     } else {
       token = "";
     }
-
+    
     return axios.get(API_URL + "/instructor/" + _id, {
       headers: {
         Authorization: token,
@@ -87,4 +87,5 @@ class CourseService {
   }
 }
 
-export default new CourseService();
+const courseService = new CourseService()
+export default courseService
