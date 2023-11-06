@@ -1,17 +1,18 @@
-import axios from "axios";
-const API_URL = "http://localhost:8080/api/courses";
+import axios from 'axios'
+const API_URL = 'http://localhost:8080/api/courses'
 
 class CourseService {
-  constructor() {
+  constructor () {
     this.parseToken = () => {
-      if (localStorage.getItem("user")) {
-        return JSON.parse(localStorage.getItem("user")).token;
+      if (localStorage.getItem('user')) {
+        return JSON.parse(localStorage.getItem('user')).token
       } else {
-        return "";
+        return ''
       }
     }
   }
-  post(title, description, price) {
+
+  post (title, description, price) {
     const token = this.parseToken()
 
     return axios.post(
@@ -19,56 +20,56 @@ class CourseService {
       { title, description, price },
       {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       }
-    );
+    )
   }
 
   // 使用學生id，找到學生註冊的課程
-  getEnrolledCourses(_id) {
-    const token = this.parseToken();
+  getEnrolledCourses (_id) {
+    const token = this.parseToken()
 
-    return axios.get(API_URL + "/student/" + _id, {
+    return axios.get(API_URL + '/student/' + _id, {
       headers: {
-        Authorization: token,
-      },
-    });
+        Authorization: token
+      }
+    })
   }
 
   // 使用instructor id，來找到講師擁有的課程
-  get(_id) {
-    const token = this.parseToken();
-    
-    return axios.get(API_URL + "/instructor/" + _id, {
+  get (_id) {
+    const token = this.parseToken()
+
+    return axios.get(API_URL + '/instructor/' + _id, {
       headers: {
-        Authorization: token,
-      },
-    });
+        Authorization: token
+      }
+    })
   }
 
-  getCourseByName(name) {
-    const token = this.parseToken();
+  getCourseByName (name) {
+    const token = this.parseToken()
 
-    return axios.get(API_URL + "/findByName/" + name, {
+    return axios.get(API_URL + '/findByName/' + name, {
       headers: {
-        Authorization: token,
-      },
-    });
+        Authorization: token
+      }
+    })
   }
 
-  enroll(_id) {
-    const token = this.parseToken();
+  enroll (_id) {
+    const token = this.parseToken()
 
     return axios.post(
-      API_URL + "/enroll/" + _id,
+      API_URL + '/enroll/' + _id,
       {},
       {
         headers: {
-          Authorization: token,
-        },
+          Authorization: token
+        }
       }
-    );
+    )
   }
 }
 

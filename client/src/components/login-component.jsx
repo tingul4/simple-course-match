@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.service";
+import { React, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import AuthService from '../services/auth.service'
 
-const LoginComponent = ({ setCurrentUser }) => {
+const LoginComponent = props => {
+  const { setCurrentUser } = props
   const navigate = useNavigate()
-  let [email, setEmail] = useState('')
-  let [password, setPassword] = useState('')
-  let [message, setMessage] = useState('')
-  
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
+
   const handleChangeEmail = e => {
     setEmail(e.target.value)
   }
@@ -21,13 +22,13 @@ const LoginComponent = ({ setCurrentUser }) => {
       window.alert('登入成功！您即將被重新導向至個人頁面！')
       setCurrentUser(AuthService.getCurrentUser())
       navigate('/profile')
-    } catch(e) {
+    } catch (e) {
       setMessage(e.response.data)
     }
   }
 
   return (
-    <div style={{ padding: "3rem" }} className="col-md-12">
+    <div style={{ padding: '3rem' }} className="col-md-12">
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
         <div className="form-group">
@@ -57,7 +58,7 @@ const LoginComponent = ({ setCurrentUser }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginComponent;
+export default LoginComponent

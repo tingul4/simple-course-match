@@ -1,17 +1,17 @@
+import { React, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
-import Layout from './components/Layout.js'
-import Home from './components/home-component.js'
-import Register from './components/register-component.js'
-import Login from './components/login-component.js'
-import Profile from './components/profile-component.js'
-import Course from './components/course-component.js'
-import Enroll from './components/enroll-component.js'
-import PostCourse from './components/postCourse-component.js'
+import Layout from './components/Layout.jsx'
+import Home from './components/home-component.jsx'
+import Register from './components/register-component.jsx'
+import Login from './components/login-component.jsx'
+import Profile from './components/profile-component.jsx'
+import Course from './components/course-component.jsx'
+import Enroll from './components/enroll-component.jsx'
+import PostCourse from './components/postCourse-component.jsx'
 import AuthService from './services/auth.service.js'
 
-function App() {
-  let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
+function App () {
+  const [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser())
 
   return (
     <BrowserRouter>
@@ -27,7 +27,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

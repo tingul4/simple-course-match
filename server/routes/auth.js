@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { User } = require('../models')
 const { registerValidation, loginValidation } = require('../validation')
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
 router.use((req, res, next) => {
   console.log('這是一個 auth 請求...')
@@ -9,7 +9,7 @@ router.use((req, res, next) => {
 })
 
 router.get('/testApi', (req, res) => {
-  return res.send("成功連結 auth route...")
+  return res.send('成功連結 auth route...')
 })
 
 router.post('/register', async (req, res) => {
@@ -18,18 +18,17 @@ router.post('/register', async (req, res) => {
 
   const { username, email, password, role } = req.body
   const emailExist = await User.findOne({ email })
-  if (emailExist) return res.status(400).send("此信箱已經被註冊過了。。。")
+  if (emailExist) return res.status(400).send('此信箱已經被註冊過了。。。')
   const newUser = new User({ username, email, password, role })
   try {
     const savedUser = await newUser.save()
     return res.send({
-      msg: "使用者成功儲存。",
-      savedUser,
+      msg: '使用者成功儲存。',
+      savedUser
     })
   } catch (error) {
-    return res.status(500).send("無法儲存使用者。。。")
+    return res.status(500).send('無法儲存使用者。。。')
   }
-
 })
 
 router.post('/login', async (req, res) => {

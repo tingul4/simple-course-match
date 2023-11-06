@@ -1,6 +1,8 @@
-const ProfileComponent = ({ currentUser }) => {
+import React from 'react'
+const ProfileComponent = props => {
+  const { currentUser } = props
   return (
-    <div style={{ padding: "3rem" }}>
+    <div style={{ padding: '3rem' }}>
       {!currentUser && <div>在獲取您的個人資料之前，您必須先登錄。</div>}
       {currentUser && (
         <div>
@@ -33,7 +35,7 @@ const ProfileComponent = ({ currentUser }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProfileComponent;
+export default ProfileComponent

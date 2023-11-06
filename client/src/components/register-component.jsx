@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.service.js";
+import { React, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import AuthService from '../services/auth.service.js'
 
 const RegisterComponent = () => {
   const navigate = useNavigate()
-  let [username, setUsername] = useState('')
-  let [email, setEmail] = useState('')
-  let [password, setPassword] = useState('')
-  let [role, setRole] = useState('')
-  let [message, setMessage] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
+  const [message, setMessage] = useState('')
 
   const handleChangeUsername = e => {
     setUsername(e.target.value)
@@ -32,7 +32,7 @@ const RegisterComponent = () => {
   }
 
   return (
-    <div style={{ padding: "3rem" }} className="col-md-12">
+    <div style={{ padding: '3rem' }} className="col-md-12">
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
         <div>
@@ -82,7 +82,7 @@ const RegisterComponent = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterComponent;
+export default RegisterComponent

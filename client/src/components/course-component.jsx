@@ -1,13 +1,13 @@
 import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CourseService from '../services/course.service';
+import CourseService from '../services/course.service'
 
-const CourseComponent = (props) => {
-  let { currentUser } = props;
-  const navigate = useNavigate();
+const CourseComponent = props => {
+  const { currentUser } = props
+  const navigate = useNavigate()
   const handleTakeToLogin = () => {
-    navigate("/login");
-  };
+    navigate('/login')
+  }
   const [courseData, setCourseData] = useState(null)
   useEffect(() => {
     let _id
@@ -27,7 +27,7 @@ const CourseComponent = (props) => {
   }, [currentUser])
 
   return (
-    <div style={{ padding: "3rem" }}>
+    <div style={{ padding: '3rem' }}>
       {!currentUser && (
         <div>
           <p>您必須先登入才能看到課程</p>
@@ -49,10 +49,10 @@ const CourseComponent = (props) => {
           <h1>歡迎來到學生的課程頁面</h1>
         </div>
       }
-      {currentUser && courseData && courseData.length !== 0 && 
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
-          {courseData.map(course => 
-            <div className='card' style={{width: '18rem', margin: '1rem'}}>
+      {currentUser && courseData && courseData.length !== 0 &&
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {courseData.map(course =>
+            <div key={course._id} className='card' style={{ width: '18rem', margin: '1rem' }}>
               <div className='card-body'>
                 <h5 className='card-title mx-1 '>課程名稱: {course.title}</h5>
                 <p className='card-text m-1'>介紹: {course.description}</p>
@@ -65,7 +65,7 @@ const CourseComponent = (props) => {
         </div>
       }
     </div>
-  );
-};
+  )
+}
 
 export default CourseComponent

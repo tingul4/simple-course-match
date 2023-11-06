@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const HomeComponent = () => {
   return (
@@ -48,7 +48,7 @@ const HomeComponent = () => {
         </footer>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default HomeComponent;
+export default HomeComponent

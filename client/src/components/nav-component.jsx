@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import AuthService from "../services/auth.service";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import AuthService from '../services/auth.service'
 
-const NavComponent = ({ currentUser, setCurrentUser }) => {
+const NavComponent = props => {
+  const { currentUser, setCurrentUser } = props
   const handleLogout = () => {
     AuthService.logout()
     window.alert('登出成功！您即將被導向至首頁！')
@@ -14,7 +15,7 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -22,7 +23,7 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarNav">
@@ -44,13 +45,12 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     會員登入
                   </Link>
                 </li>}
-                
+
                 {currentUser && <li className="nav-item">
                   <Link onClick={handleLogout} className="nav-link" to="/">
                     登出
                   </Link>
                 </li>}
-                
 
                 {currentUser && <li className="nav-item">
                   <Link className="nav-link" to="/profile">
@@ -81,7 +81,7 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
         </nav>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default NavComponent;
+export default NavComponent
