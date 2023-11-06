@@ -125,10 +125,36 @@ router.get("/instructor/:_instructor_id", async (req, res) => {
 // 用學生id來尋找註冊過的課程
 router.get("/student/:_student_id", async (req, res) => {
   let { _student_id } = req.params;
-  let coursesFound = await Course.find({ students: _student_id })
+  let coursesFound = await Course.find({ student: _student_id })
     .populate("instructor", ["username", "email"])
     .exec();
   return res.send(coursesFound);
+});
+
+// 用課程名稱尋找課程
+router.get("/findByName/:name", async (req, res) => {
+  let { name } = req.params;
+  try {
+    let courseFound = await Course.find({ $where: () => this.filter(e => e.title.toLowerCase().includes(name.toLowerCase()))})
+      .populate("instructor", ["email", "username"])
+      .exec();
+    return res.send(courseFound);
+  } catch (e) {
+    return res.status(500).send(e);
+  }
+});
+
+// 讓學生透過課程id來註冊新課程
+router.post("/enroll/:_id", async (req, res) => {
+  let { _id } = req.params;
+  try {
+    let course = await Course.findOne({ _id }).exec();
+    course.student.push(req.user._id);
+    await course.save();
+    return res.send("註冊完成");
+  } catch (e) {
+    return res.send(e);
+  }
 });
 
 module.exports = router

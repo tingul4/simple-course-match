@@ -6,6 +6,8 @@ import Register from './components/register-component.js'
 import Login from './components/login-component.js'
 import Profile from './components/profile-component.js'
 import Course from './components/course-component.js'
+import Enroll from './components/enroll-component.js'
+import PostCourse from './components/postCourse-component.js'
 import AuthService from './services/auth.service.js'
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path='login' element={<Login setCurrentUser={setCurrentUser}/>} />
           <Route path='profile' element={<Profile currentUser={currentUser}/>} />
           <Route path='course' element={<Course currentUser={currentUser}/>} />
+          <Route path='enroll' element={<Enroll currentUser={currentUser}/>} />
+          <Route path='postCourse' element={<PostCourse currentUser={currentUser}/>} />
         </Route>
       </Routes>
     </BrowserRouter>

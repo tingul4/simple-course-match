@@ -24,7 +24,7 @@ const CourseComponent = (props) => {
           .catch(e => console.log(e))
       }
     }
-  }, [])
+  }, [currentUser])
 
   return (
     <div style={{ padding: "3rem" }}>
@@ -58,6 +58,7 @@ const CourseComponent = (props) => {
                 <p className='card-text m-1'>介紹: {course.description}</p>
                 <p className='card-text m-1'>學生人數: {course.student.length}</p>
                 <p className='card-text m-1'>課程價格: {course.price}</p>
+                <p className='card-text m-1'>講師: {course.instructor.username}</p>
               </div>
             </div>
           )}

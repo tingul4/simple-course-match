@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CourseService from "../services/course.service";
 
 const EnrollComponent = (props) => {
-  let { currentUser, setCurrentUser } = props;
+  let { currentUser } = props;
   const navigate = useNavigate();
   let [searchInput, setSearchInput] = useState("");
   let [searchResult, setSearchResult] = useState(null);
@@ -15,9 +15,8 @@ const EnrollComponent = (props) => {
   };
   const handleSearch = () => {
     CourseService.getCourseByName(searchInput)
-      .then((data) => {
-        console.log(data);
-        setSearchResult(data.data);
+      .then(res => {
+        setSearchResult(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -47,12 +46,12 @@ const EnrollComponent = (props) => {
           </button>
         </div>
       )}
-      {currentUser && currentUser.user.role == "instructor" && (
+      {currentUser && currentUser.user.role === "instructor" && (
         <div>
           <h1>Only students can enroll in courses.</h1>
         </div>
       )}
-      {currentUser && currentUser.user.role == "student" && (
+      {currentUser && currentUser.user.role === "student" && (
         <div className="search input-group mb-3">
           <input
             onChange={handleChangeInput}
@@ -64,7 +63,7 @@ const EnrollComponent = (props) => {
           </button>
         </div>
       )}
-      {currentUser && searchResult && searchResult.length != 0 && (
+      {currentUser && searchResult && searchResult.length !== 0 && (
         <div>
           <p>我們從 API 返回的數據。</p>
           {searchResult.map((course) => (
@@ -73,15 +72,15 @@ const EnrollComponent = (props) => {
                 <h5 className="card-title">課程名稱：{course.title}</h5>
                 <p className="card-text">{course.description}</p>
                 <p>價格: {course.price}</p>
-                <p>目前的學生人數: {course.students.length}</p>
-                <a
-                  href="#"
+                <p>目前的學生人數: {course.student.length}</p>
+                <p>講師: {course.instructor.username}</p>
+                <button
                   onClick={handleEnroll}
                   className="card-text btn btn-primary"
                   id={course._id}
                 >
                   註冊課程
-                </a>
+                </button>
               </div>
             </div>
           ))}

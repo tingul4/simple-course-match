@@ -2,13 +2,18 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api/courses";
 
 class CourseService {
-  post(title, description, price) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
+  constructor() {
+    this.parseToken = () => {
+      if (localStorage.getItem("user")) {
+        return JSON.parse(localStorage.getItem("user")).token;
+      } else {
+        return "";
+      }
     }
+  }
+  post(title, description, price) {
+    const token = this.parseToken()
+
     return axios.post(
       API_URL,
       { title, description, price },
@@ -22,12 +27,7 @@ class CourseService {
 
   // 使用學生id，找到學生註冊的課程
   getEnrolledCourses(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+    const token = this.parseToken();
 
     return axios.get(API_URL + "/student/" + _id, {
       headers: {
@@ -38,12 +38,7 @@ class CourseService {
 
   // 使用instructor id，來找到講師擁有的課程
   get(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+    const token = this.parseToken();
     
     return axios.get(API_URL + "/instructor/" + _id, {
       headers: {
@@ -53,12 +48,7 @@ class CourseService {
   }
 
   getCourseByName(name) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+    const token = this.parseToken();
 
     return axios.get(API_URL + "/findByName/" + name, {
       headers: {
@@ -68,12 +58,7 @@ class CourseService {
   }
 
   enroll(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+    const token = this.parseToken();
 
     return axios.post(
       API_URL + "/enroll/" + _id,
