@@ -12,7 +12,6 @@ plugins:
 settings:
   react:
     version: detect
-rules: {
+rules: 
   react/prop-types: off
   arrow-parens: [warn, as-needed]
-}

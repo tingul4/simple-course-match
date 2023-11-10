@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:8080/api/user'
+const API_URL = 'https://simple-course-match-malyixlpwq-de.a.run.app/api/user'
 
 class AuthService {
   login (email, password) {
