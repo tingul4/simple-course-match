@@ -1,5 +1,7 @@
 import axios from 'axios'
-const API_URL = 'https://simple-course-match-malyixlpwq-de.a.run.app/api/user'
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://simple-course-match-malyixlpwq-de.a.run.app/api/user'
+  : 'http://localhost:8080/api/user'
 
 class AuthService {
   login (email, password) {
