@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CourseService from '../services/course.service'
 
@@ -7,9 +7,11 @@ const EnrollComponent = props => {
   const navigate = useNavigate()
   const [searchInput, setSearchInput] = useState('')
   const [searchResult, setSearchResult] = useState(null)
-  const handleTakeToLogin = () => {
-    navigate('/login')
-  }
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  });
   const handleChangeInput = e => {
     setSearchInput(e.target.value)
   }
@@ -35,20 +37,9 @@ const EnrollComponent = props => {
 
   return (
     <div style={{ padding: '3rem' }}>
-      {!currentUser && (
-        <div>
-          <p>You must login first before searching for courses.</p>
-          <button
-            className="btn btn-primary btn-lg"
-            onClick={handleTakeToLogin}
-          >
-            Take me to login page.
-          </button>
-        </div>
-      )}
       {currentUser && currentUser.user.role === 'instructor' && (
         <div>
-          <h1>Only students can enroll in courses.</h1>
+          <h3>只有學生可以註冊課程。</h3>
         </div>
       )}
       {currentUser && currentUser.user.role === 'student' && (

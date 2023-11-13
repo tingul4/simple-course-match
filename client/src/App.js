@@ -8,6 +8,7 @@ import Profile from './components/profile-component.jsx'
 import Course from './components/course-component.jsx'
 import Enroll from './components/enroll-component.jsx'
 import PostCourse from './components/postCourse-component.jsx'
+import MernIntro from './components/mernIntro-component.jsx'
 import AuthService from './services/auth.service.js'
 
 function App () {
@@ -24,6 +25,7 @@ function App () {
           <Route path='course' element={<Course currentUser={currentUser}/>} />
           <Route path='enroll' element={<Enroll currentUser={currentUser}/>} />
           <Route path='postCourse' element={<PostCourse currentUser={currentUser}/>} />
+          <Route path='mernIntro' element={<MernIntro />} />
         </Route>
       </Routes>
     </BrowserRouter>
